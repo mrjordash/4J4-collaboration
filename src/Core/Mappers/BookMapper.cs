@@ -17,6 +17,7 @@ public static class BookMapper
         CreatedAt = book.CreatedAt,
     };
 
+
     public static Book ToEntity(CreateBookRequest request) => new()
     {
         Title = request.Title.Trim(),

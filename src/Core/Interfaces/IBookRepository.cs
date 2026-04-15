@@ -10,3 +10,4 @@ public interface IBookRepository
     bool Update(Book book);
     bool Delete(int id);
 }
+

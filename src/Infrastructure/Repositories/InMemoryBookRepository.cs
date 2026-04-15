@@ -46,3 +46,4 @@ public class InMemoryBookRepository : IBookRepository
         Add(new Book { Title = "1984", Author = "George Orwell", Year = 1949, Genre = "Dystopian", Pages = 328, Isbn = "978-0451524935" });
     }
 }
+
