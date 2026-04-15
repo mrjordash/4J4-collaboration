@@ -1,5 +1,16 @@
 namespace Core.DTOs;
 
+
+/*
+ *
+ * This is a random comment, it meant to cause a merge conlfict:
+ *
+ *
+ */
+
+
+
+
 public class BookDto
 {
     public int Id { get; set; }
