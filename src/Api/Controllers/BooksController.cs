@@ -14,8 +14,16 @@ public class BooksController(IBookService service) : ControllerBase
     /// </summary>
     /// <returns>every thing</returns>
     [HttpGet]
-    public ActionResult<IReadOnlyList<BookDto>> GetAll()
-        => Ok(service.GetAll());
+    public ActionResult<IReadOnlyList<BookDto>> GetAll([FromQuery] string? genre, [FromQuery] string? year)
+    {
+        if (!string.IsNullOrWhiteSpace(year))
+        {
+            if (!int.TryParse(year, out var yearInt))
+                return BadRequest(new { error = "Invalid year" });
+            return Ok(service.GetAll(genre, yearInt));
+        }
+        return Ok(service.GetAll(genre, null));
+    }
 
     [HttpGet("{id:int}")]
     public ActionResult<BookDto> GetById(int id)
