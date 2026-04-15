@@ -33,7 +33,7 @@ public class BooksController(IBookService service) : ControllerBase
     {
         if (!ModelState.IsValid) return BadRequest(ModelState);
         var updated = service.Update(id, request);
-        if (updated is null) return NotFound(new { message = $"Book {id} not found" });
+        if (updated is null) return NotFound(new { message = $"Book {id} not found. Why do you want to hack me?" });
         return Ok(updated);
     }
 
