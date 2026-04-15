@@ -8,6 +8,11 @@ namespace Api.Controllers;
 [Route("api/v1/books")]
 public class BooksController(IBookService service) : ControllerBase
 {
+
+    /// <summary>
+    /// documentation
+    /// </summary>
+    /// <returns>every thing</returns>
     [HttpGet]
     public ActionResult<IReadOnlyList<BookDto>> GetAll()
         => Ok(service.GetAll());
