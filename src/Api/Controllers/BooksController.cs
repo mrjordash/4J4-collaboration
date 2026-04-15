@@ -20,7 +20,9 @@ public class BooksController(IBookService service) : ControllerBase
     [HttpGet("{id:int}")]
     public ActionResult<BookDto> GetById(int id)
     {
+
         var book = service.GetById(id);
+
         if (book is null) return NotFound(new { message = $"Book {id} not found" });
         return Ok(book);
     }
@@ -38,7 +40,7 @@ public class BooksController(IBookService service) : ControllerBase
     {
         if (!ModelState.IsValid) return BadRequest(ModelState);
         var updated = service.Update(id, request);
-        if (updated is null) return NotFound(new { message = $"Book {id} not found" });
+        if (updated is null) return NotFound(new { message = $"Book {id} not found. hacking is a bad idea" });
         return Ok(updated);
     }
 
