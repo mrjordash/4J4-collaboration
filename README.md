@@ -24,11 +24,17 @@ Puis ouvrir http://localhost:5050/swagger.
 
 ```
 src/
-├── Api/       — Contrôleurs, Program.cs, Swagger
-└── Core/      — Entités, DTOs, services, interfaces, repository en mémoire
+├── Api/             — Contrôleurs, Program.cs, Swagger
+├── Core/            — Entités, DTOs, services, interfaces (zéro I/O)
+└── Infrastructure/  — Implémentations de persistance (repository en mémoire)
 tests/
-└── Core.Tests/  — Tests xUnit
+└── Core.Tests/      — Tests xUnit
 ```
+
+Le découpage suit la Clean Architecture: `Core` ne connaît que ses propres
+interfaces; c'est `Infrastructure` qui fournit l'implémentation. Swapper le
+stockage en mémoire pour une base de données ne touche que `Infrastructure`
+et `Program.cs`.
 
 ## Exercices
 

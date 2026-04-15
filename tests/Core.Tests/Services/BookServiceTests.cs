@@ -1,5 +1,5 @@
 using Core.DTOs;
-using Core.Repositories;
+using Infrastructure.Repositories;
 using Core.Services;
 using FluentAssertions;
 

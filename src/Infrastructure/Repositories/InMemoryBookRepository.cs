@@ -2,7 +2,7 @@ using System.Collections.Concurrent;
 using Core.Entities;
 using Core.Interfaces;
 
-namespace Core.Repositories;
+namespace Infrastructure.Repositories;
 
 public class InMemoryBookRepository : IBookRepository
 {
