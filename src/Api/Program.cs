@@ -15,7 +15,7 @@ builder.Services.AddSwaggerGen(options =>
         Description = "Simple CRUD API used to teach Git branching, pull requests and code review."
     });
 });
-
+//peut être ajouter dans un fichier dependency injection
 builder.Services.AddSingleton<IBookRepository, InMemoryBookRepository>();
 builder.Services.AddScoped<IBookService, BookService>();
 
