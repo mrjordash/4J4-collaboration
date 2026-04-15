@@ -40,3 +40,4 @@ public class BookService(IBookRepository repository) : IBookService
 
     public bool Delete(int id) => repository.Delete(id);
 }
+

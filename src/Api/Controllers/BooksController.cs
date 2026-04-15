@@ -15,6 +15,7 @@ public class BooksController(IBookService service) : ControllerBase
     [HttpGet("{id:int}")]
     public ActionResult<BookDto> GetById(int id)
     {
+
         var book = service.GetById(id);
 
         if (book is null) return NotFound(new { message = $"Book {id} not found" });

@@ -10,3 +10,4 @@ public interface IBookService
     BookDto? Update(int id, UpdateBookRequest request);
     bool Delete(int id);
 }
+

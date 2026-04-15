@@ -15,6 +15,7 @@ public class CreateBookRequest
     [Range(1000, 9999)]
     public int Year { get; set; }
 
+
     [Required]
     [StringLength(50)]
     public string Genre { get; set; } = string.Empty;

@@ -16,6 +16,7 @@ public class UpdateBookRequest
     [StringLength(50)]
     public string? Genre { get; set; }
 
+
     [Range(1, 10000)]
     public int? Pages { get; set; }
 
