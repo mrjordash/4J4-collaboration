@@ -5,7 +5,7 @@ namespace Core.DTOs;
 public class CreateBookRequest
 {
     [Required]
-    [StringLength(200, MinimumLength = 1)]
+    [StringLength(205, MinimumLength = 1)]
     public string Title { get; set; } = string.Empty;
 
     [Required]
