@@ -16,6 +16,7 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
+// Fichier DependencyInjection.cs
 builder.Services.AddSingleton<IBookRepository, InMemoryBookRepository>();
 builder.Services.AddScoped<IBookService, BookService>();
 

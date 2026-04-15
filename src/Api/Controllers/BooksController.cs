@@ -12,6 +12,7 @@ public class BooksController(IBookService service) : ControllerBase
     public ActionResult<IReadOnlyList<BookDto>> GetAll()
         => Ok(service.GetAll());
 
+    // http://localhost:5050/api/v1/books/5
     [HttpGet("{id:int}")]
     public ActionResult<BookDto> GetById(int id)
     {
@@ -28,7 +29,7 @@ public class BooksController(IBookService service) : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
     }
 
-    [HttpPut("{id:int}")]
+    [HttpPut("{id:int}/bob")]
     public ActionResult<BookDto> Update(int id, [FromBody] UpdateBookRequest request)
     {
         if (!ModelState.IsValid) return BadRequest(ModelState);
