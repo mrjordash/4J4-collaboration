@@ -17,7 +17,7 @@ public class BooksController(IBookService service) : ControllerBase
     public ActionResult<BookDto> GetById(int id)
     {
         var book = service.GetById(id);
-        if (book is null) return NotFound(new { message = $"Book {id} not found" });
+        if (book is null) return NotFound(new { message = $"Book {id} is not found" });
         return Ok(book);
     }
 
@@ -34,7 +34,7 @@ public class BooksController(IBookService service) : ControllerBase
     {
         if (!ModelState.IsValid) return BadRequest(ModelState);
         var updated = service.Update(id, request);
-        if (updated is null) return NotFound(new { message = $"Book {id} not found" });
+        if (updated is null) return NotFound(new { message = $"Book {id} is not found" });
         return Ok(updated);
     }
 
@@ -42,7 +42,7 @@ public class BooksController(IBookService service) : ControllerBase
     public IActionResult Delete(int id)
     {
         var deleted = service.Delete(id);
-        if (!deleted) return NotFound(new { message = $"Book {id} not found" });
+        if (!deleted) return NotFound(new { message = $"Book {id} is not found" });
         return NoContent();
     }
 }
