@@ -1,0 +1,56 @@
+name: Seed Practice Issues
+
+# Crée les issues d'entraînement pour le repo de collaboration (branches / PR / code review).
+# À exécuter une fois au début de l'activité.
+#
+# Permissions requises: Settings → Actions → General → Workflow permissions → "Read and write permissions"
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  seed-issues:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Create labels
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          create_label() {
+            gh label create "$1" --color "$2" --description "$3" --repo "$REPO" 2>/dev/null || \
+            gh label edit "$1" --color "$2" --description "$3" --repo "$REPO"
+          }
+          create_label "practice" "1d76db" "Exercice de collaboration"
+          create_label "good-first-pr" "0e8a16" "Parfait pour une première PR"
+          create_label "feature" "c5def5" "Nouvelle fonctionnalité"
+
+      - name: Create issues
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -e
+          COUNT=0
+          for f in .github/backlog/*.md; do
+            [ -e "$f" ] || continue
+            TITLE=$(head -n1 "$f" | sed 's/^# //')
+            LABELS=$(grep -E '^<!-- labels:' "$f" | sed -E 's/^<!-- labels: *(.*) *-->$/\1/')
+            BODY=$(tail -n +3 "$f")
+
+            ARGS=(--repo "$REPO" --title "$TITLE" --body "$BODY")
+            IFS=',' read -ra LBL <<< "$LABELS"
+            for l in "${LBL[@]}"; do ARGS+=(--label "$(echo $l | xargs)"); done
+
+            gh issue create "${ARGS[@]}"
+            COUNT=$((COUNT+1))
+          done
+          echo "### Issues créées ✅" >> $GITHUB_STEP_SUMMARY
+          echo "- $COUNT issues ajoutées au backlog" >> $GITHUB_STEP_SUMMARY
