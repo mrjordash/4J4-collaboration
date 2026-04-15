@@ -6,23 +6,16 @@ namespace Api.Controllers;
 
 [ApiController]
 [Route("api/v1/books")]
-public class BooksController : ControllerBase
+public class BooksController(IBookService service) : ControllerBase
 {
-    private readonly IBookService _service;
-
-    public BooksController(IBookService service)
-    {
-        _service = service;
-    }
-
     [HttpGet]
     public ActionResult<IReadOnlyList<BookDto>> GetAll()
-        => Ok(_service.GetAll());
+        => Ok(service.GetAll());
 
     [HttpGet("{id:int}")]
     public ActionResult<BookDto> GetById(int id)
     {
-        var book = _service.GetById(id);
+        var book = service.GetById(id);
         if (book is null) return NotFound(new { message = $"Book {id} not found" });
         return Ok(book);
     }
@@ -31,7 +24,7 @@ public class BooksController : ControllerBase
     public ActionResult<BookDto> Create([FromBody] CreateBookRequest request)
     {
         if (!ModelState.IsValid) return BadRequest(ModelState);
-        var created = _service.Create(request);
+        var created = service.Create(request);
         return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
     }
 
@@ -39,7 +32,7 @@ public class BooksController : ControllerBase
     public ActionResult<BookDto> Update(int id, [FromBody] UpdateBookRequest request)
     {
         if (!ModelState.IsValid) return BadRequest(ModelState);
-        var updated = _service.Update(id, request);
+        var updated = service.Update(id, request);
         if (updated is null) return NotFound(new { message = $"Book {id} not found" });
         return Ok(updated);
     }
@@ -47,7 +40,7 @@ public class BooksController : ControllerBase
     [HttpDelete("{id:int}")]
     public IActionResult Delete(int id)
     {
-        var deleted = _service.Delete(id);
+        var deleted = service.Delete(id);
         if (!deleted) return NotFound(new { message = $"Book {id} not found" });
         return NoContent();
     }
