@@ -4,7 +4,7 @@ Repo d'entraînement pour le cours **420-4J4-SO**. On y pratique le flot de coll
 
 ## Stack
 
-- .NET 8 — ASP.NET Core Web API
+- .NET 10 — ASP.NET Core Web API
 - xUnit + FluentAssertions pour les tests
 - Swagger pour explorer l'API à la main
 - Stockage **en mémoire** — aucune base de données, aucun Docker
