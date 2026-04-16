@@ -17,6 +17,7 @@ public class BookService(IBookRepository repository) : IBookService
 
     public BookDto Create(CreateBookRequest request)
     {
+        // Map request to entity !
         var entity = BookMapper.ToEntity(request);
         var created = repository.Add(entity);
         return BookMapper.ToDto(created);
@@ -27,6 +28,7 @@ public class BookService(IBookRepository repository) : IBookService
         var book = repository.GetById(id);
         if (book is null) return null;
 
+        // TODO: This is a lot of IF!!!
         if (request.Title is not null) book.Title = request.Title.Trim();
         if (request.Author is not null) book.Author = request.Author.Trim();
         if (request.Year.HasValue) book.Year = request.Year.Value;
