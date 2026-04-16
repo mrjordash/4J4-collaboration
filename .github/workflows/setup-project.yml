@@ -24,6 +24,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
         run: |
+          // testlost
           create_label() {
             gh label create "$1" --color "$2" --description "$3" --repo "$REPO" 2>/dev/null || \
             gh label edit "$1" --color "$2" --description "$3" --repo "$REPO"
