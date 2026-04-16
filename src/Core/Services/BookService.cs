@@ -17,6 +17,7 @@ public class BookService(IBookRepository repository) : IBookService
 
     public BookDto Create(CreateBookRequest request)
     {
+        // Map request to entity !
         var entity = BookMapper.ToEntity(request);
         var created = repository.Add(entity);
         return BookMapper.ToDto(created);
