@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using Core.DTOs;
 using Core.Interfaces;
 using Core.Mappers;
@@ -6,8 +8,20 @@ namespace Core.Services;
 
 public class BookService(IBookRepository repository) : IBookService
 {
-    public IReadOnlyList<BookDto> GetAll()
-        => repository.GetAll().Select(BookMapper.ToDto).ToList();
+    public IReadOnlyList<BookDto> GetAll(string? genre = null, int? year = null)
+    {
+        var books = repository.GetAll().AsEnumerable();
+        if (!string.IsNullOrWhiteSpace(genre))
+        {
+            var g = genre.Trim();
+            books = books.Where(b => !string.IsNullOrWhiteSpace(b.Genre) && string.Equals(b.Genre.Trim(), g, StringComparison.OrdinalIgnoreCase));
+        }
+        if (year.HasValue)
+        {
+            books = books.Where(b => b.Year == year.Value);
+        }
+        return books.Select(BookMapper.ToDto).ToList();
+    }
 
     public BookDto? GetById(int id)
     {
